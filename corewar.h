@@ -6,38 +6,15 @@
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 14:35:51 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/11/02 17:18:13 by mmonahan         ###   ########.fr       */
+/*   Updated: 2020/02/15 11:37:18 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#ifndef COREWAR_COREWAR_H
+# define COREWAR_COREWAR_H
 
-int	main(int argc, char **argv)
-{
-	int	i;
+# include <stdio.h> // УДАЛИТЬ, ЗЛОЙ ПРИНТФ!
 
-	i = 1;
-	if (argv)
-		; //заглушка
+# include "op.h"
 
-	if (argc == 1)
-	{
-		printf("Нет игроков\n");
-		return (1); //ошибка, т.к. нет игроков
-	}
-
-	if (argc > MAX_PLAYERS)
-	{
-		printf("Слишком много игроков\n");
-		return (1); //ошибка, т.к. игроков больше чем MAX_PLAYERS
-	}
-
-	while(i < argc)
-	{
-		printf("%s\n", argv[i]);
-		i++;
-	}
-
-	printf("Hello, corewar!\n");
-	return (0);
-}
+#endif //COREWAR_COREWAR_H
