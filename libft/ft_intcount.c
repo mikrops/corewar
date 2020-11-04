@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_intcount.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/30 14:35:51 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/02/15 11:37:18 by mmonahan         ###   ########.fr       */
+/*   Created: 2019/01/02 16:31:44 by mmonahan          #+#    #+#             */
+/*   Updated: 2020/02/14 19:41:24 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_COREWAR_H
-# define COREWAR_COREWAR_H
+#include "libft.h"
 
-# include <stdio.h> // УДАЛИТЬ, ЗЛОЙ ПРИНТФ!
-
-# include "libft/libft.h"
-# include "op.h"
-
-typedef struct		s_core
+size_t	ft_intcount(int n)
 {
-	int 			number_player[MAX_PLAYERS];
-	unsigned char	memory[MEM_SIZE];
-}					t_core;
+	size_t count;
 
-void 				check_param(int count, char **players);
-void				validation(t_core *core);
-
-#endif //COREWAR_COREWAR_H
+	count = 0;
+	if (n == 0)
+		count++;
+	else
+		while (n)
+		{
+			n /= 10;
+			count++;
+		}
+	return (count);
+}

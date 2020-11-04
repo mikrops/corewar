@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/30 14:35:51 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/02/15 11:37:18 by mmonahan         ###   ########.fr       */
+/*   Created: 2018/12/14 03:11:44 by mmonahan          #+#    #+#             */
+/*   Updated: 2020/02/14 19:41:24 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_COREWAR_H
-# define COREWAR_COREWAR_H
+#include "libft.h"
 
-# include <stdio.h> // УДАЛИТЬ, ЗЛОЙ ПРИНТФ!
-
-# include "libft/libft.h"
-# include "op.h"
-
-typedef struct		s_core
+void	ft_putnbr(int n)
 {
-	int 			number_player[MAX_PLAYERS];
-	unsigned char	memory[MEM_SIZE];
-}					t_core;
-
-void 				check_param(int count, char **players);
-void				validation(t_core *core);
-
-#endif //COREWAR_COREWAR_H
+	if (n > -2147483648 && n <= 2147483647)
+	{
+		if (n < 0)
+		{
+			ft_putchar('-');
+			ft_putnbr(-n);
+		}
+		else if (n > 9)
+		{
+			ft_putnbr(n / 10);
+			ft_putnbr(n % 10);
+		}
+		else
+		{
+			ft_putchar(n + '0');
+		}
+	}
+	else if (n == -2147483648)
+	{
+		ft_putstr("-2147483648");
+	}
+}

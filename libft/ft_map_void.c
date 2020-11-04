@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_map_void.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/30 14:35:51 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/02/15 11:37:18 by mmonahan         ###   ########.fr       */
+/*   Created: 2019/10/16 17:54:16 by mmonahan          #+#    #+#             */
+/*   Updated: 2020/02/14 19:41:24 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_COREWAR_H
-# define COREWAR_COREWAR_H
+#include "libft.h"
 
-# include <stdio.h> // УДАЛИТЬ, ЗЛОЙ ПРИНТФ!
+/*
+**	Выделение памяти под двумерный массив void
+*/
 
-# include "libft/libft.h"
-# include "op.h"
-
-typedef struct		s_core
+void	**ft_map_void(int row, int col, size_t size_row, size_t size_col)
 {
-	int 			number_player[MAX_PLAYERS];
-	unsigned char	memory[MEM_SIZE];
-}					t_core;
+	int		i;
+	void	**map;
 
-void 				check_param(int count, char **players);
-void				validation(t_core *core);
-
-#endif //COREWAR_COREWAR_H
+	i = 0;
+	map = (void **)ft_memalloc(size_row * (row + 1));
+	map[row] = NULL;
+	while (i < row)
+	{
+		map[i] = (void *)ft_memalloc(size_col * (col + 1));
+		i++;
+	}
+	return (map);
+}

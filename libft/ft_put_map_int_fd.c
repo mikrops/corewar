@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_put_map_int_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/30 14:35:51 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/02/15 11:37:18 by mmonahan         ###   ########.fr       */
+/*   Created: 2019/09/23 15:59:01 by mmonahan          #+#    #+#             */
+/*   Updated: 2020/02/14 19:41:24 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_COREWAR_H
-# define COREWAR_COREWAR_H
+#include "libft.h"
 
-# include <stdio.h> // УДАЛИТЬ, ЗЛОЙ ПРИНТФ!
+/*
+**	Выводит двумерный числовой(int) массив размерами row x col в поток fd
+*/
 
-# include "libft/libft.h"
-# include "op.h"
-
-typedef struct		s_core
+void	ft_put_map_int_fd(int **map, int row, int col, int fd)
 {
-	int 			number_player[MAX_PLAYERS];
-	unsigned char	memory[MEM_SIZE];
-}					t_core;
+	int i;
+	int j;
 
-void 				check_param(int count, char **players);
-void				validation(t_core *core);
-
-#endif //COREWAR_COREWAR_H
+	i = 0;
+	j = 0;
+	while (j < row)
+	{
+		while (i < col)
+		{
+			ft_putnbr_fd(map[j][i], fd);
+			ft_putchar_fd('\t', fd);
+			i++;
+		}
+		ft_putstr_fd("\n", fd);
+		i = 0;
+		j++;
+	}
+}

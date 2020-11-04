@@ -1,30 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcut.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/30 14:35:51 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/02/15 11:37:18 by mmonahan         ###   ########.fr       */
+/*   Created: 2019/12/25 20:11:36 by mmonahan          #+#    #+#             */
+/*   Updated: 2020/02/14 19:41:24 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_COREWAR_H
-# define COREWAR_COREWAR_H
+#include "libft.h"
 
-# include <stdio.h> // УДАЛИТЬ, ЗЛОЙ ПРИНТФ!
+/*
+**	Возвращает строрку до символа 'c'
+*/
 
-# include "libft/libft.h"
-# include "op.h"
-
-typedef struct		s_core
+char	*ft_strcut(const char *str, int c)
 {
-	int 			number_player[MAX_PLAYERS];
-	unsigned char	memory[MEM_SIZE];
-}					t_core;
+	int		i;
+	int		len;
+	char	*rezult;
 
-void 				check_param(int count, char **players);
-void				validation(t_core *core);
-
-#endif //COREWAR_COREWAR_H
+	i = 0;
+	len = 0;
+	if (!str)
+		return (NULL);
+	while (str[i])
+	{
+		if (str[i] == c)
+			break ;
+		i++;
+		len++;
+	}
+	i = 0;
+	rezult = ft_memalloc(len + 1);
+	while (i < len)
+	{
+		rezult[i] = str[i];
+		i++;
+	}
+	rezult[i] = '\0';
+	return (rezult);
+}
