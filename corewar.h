@@ -17,4 +17,9 @@
 
 # include "op.h"
 
+typedef struct		s_core
+{
+	unsigned char	memory[MEM_SIZE];
+}					t_core;
+
 #endif //COREWAR_COREWAR_H
