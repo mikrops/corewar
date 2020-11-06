@@ -6,7 +6,7 @@
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 14:35:51 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/11/05 05:46:35 by mmonahan         ###   ########.fr       */
+/*   Updated: 2020/11/06 07:11:20 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ static t_operation	op_flag[2] =
 	{0, 0, 0, {0}}
 };
 */
-
+int					check_name_player(char *player);
 void 				check_param(int count, char **players, t_core *core);
+void				check_flag_n(int count, char **players, t_core *core);
 void				validation(t_core *core);
 
 #endif //COREWAR_COREWAR_H
