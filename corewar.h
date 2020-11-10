@@ -6,7 +6,7 @@
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 14:35:51 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/11/09 06:03:17 by mmonahan         ###   ########.fr       */
+/*   Updated: 2020/11/10 06:23:44 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include "libft/libft.h"
 # include "op.h"
 
+# define SIZE_MAGIC_FIELD 4
+# define SIZE_SKIP_FIELD 4
+
 typedef struct		s_player
 {
 	int 			number;
@@ -27,8 +30,9 @@ typedef struct		s_player
 
 typedef struct		s_core
 {
+	int 			count;
 	t_player 		player[MAX_PLAYERS + 1];
-	unsigned char	memory[MEM_SIZE];
+	unsigned char	game_memory[MEM_SIZE];
 }					t_core;
 
 
