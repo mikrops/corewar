@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_core	core;
 
 	check_param(argc, argv, &core);
-	validation(&core);
+	validation(argc, argv, &core);
 
 	printf("Hello, corewar!\n");
 	return (0);

@@ -107,6 +107,7 @@ void	sort_queue(t_core *core, int *queue)
 		if (queue[i] != 0)
 		{
 			swap_player(&core->player[i], &core->player[queue[i]]);
+			// не отрабатывает, когда  например -n 3 0 1 0!!!!
 		}
 		i++;
 	}

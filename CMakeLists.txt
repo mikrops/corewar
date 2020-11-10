@@ -5,7 +5,7 @@ set(CMAKE_C_STANDARD 99)
 
 add_definitions(-Wall -Wextra)
 
-add_executable(corewar main.c corewar.h validation.c check_param.c
+add_executable(corewar main.c corewar.h
         libft/ft_memset.c
         libft/ft_bzero.c
         libft/ft_memcpy.c
@@ -87,4 +87,7 @@ add_executable(corewar main.c corewar.h validation.c check_param.c
         libft/ft_str_rejoin.c
         libft/ft_radtodeg.c
         libft/ft_strcut.c
-        libft/libft.h flag_n.c check_name_player.c)
+        libft/libft.h
+        check_param.c validation.c
+        flag_n.c check_name_player.c
+        )
