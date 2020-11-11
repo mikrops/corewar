@@ -6,7 +6,7 @@
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 17:18:13 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/11/10 05:43:38 by mmonahan         ###   ########.fr       */
+/*   Updated: 2020/11/11 06:57:03 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
  *
  *
 **	НАДО НАЙТИ КОЛИЧЕСТВО ИГРОКОВ И СОХРАНИТЬ В CORE
+**	Надо учитывать количество игроков при флаге -n!
 */
 
 int	check_count_players(int count, char **player, t_core *core)
@@ -32,7 +33,7 @@ int	check_count_players(int count, char **player, t_core *core)
 		if (!check_name_player(player[i]))
 		{
 			//max_p++;
-			core->player[++max_p].number = i;//max_p;
+			core->champ[++max_p].number = i;//max_p;
 		}
 		if (max_p > MAX_PLAYERS)
 		{
@@ -52,11 +53,11 @@ int	check_count_players(int count, char **player, t_core *core)
 void	check_param(int count, char **players, t_core *core)
 {
 
-	check_count_players(count, players, core);
+	core->count = check_count_players(count, players, core);
 	int i = 1;
 	while (i <= MAX_PLAYERS)
 	{
-		printf("p%i - [%i], ", i, core->player[i].number);
+		printf("p%i - [%i], ", i, core->champ[i].number);
 		i++;
 	}
 	printf("\n");
@@ -65,10 +66,10 @@ void	check_param(int count, char **players, t_core *core)
 	i = 1;
 	while (i <= MAX_PLAYERS)
 	{
-		printf("p%i - [%i], ", i, core->player[i].number);
+		printf("p%i - [%i], ", i, core->champ[i].number);
 		i++;
 	}
-	printf("\n");
+	printf("\nКоличество игроков: [%i]\n", core->count);
 }
 
 /*

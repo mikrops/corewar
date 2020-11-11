@@ -6,11 +6,19 @@
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 17:18:13 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/11/10 06:56:27 by mmonahan         ###   ########.fr       */
+/*   Updated: 2020/11/11 07:39:49 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+void	reverse_uint(unsigned int *n)
+{
+	*n = ((*n << 24) |
+		(*n >> 24) |
+		((*n >> 16) << 24) >> 16 |
+		((*n >> 8) << 24) >> 8);
+}
 
 int	ft_check_empty_srt(char *str, size_t len)
 {
@@ -25,10 +33,8 @@ int	ft_check_empty_srt(char *str, size_t len)
 
 void	check_magic(unsigned int *n)
 {
-	*n = ((*n << 24) |
-		(*n >> 24) |
-		((*n >> 16) << 24) >> 16 |
-		((*n >> 8) << 24) >> 8);
+	//*n = rev_uint(*n);
+	reverse_uint(n);
 	if (*n != COREWAR_EXEC_MAGIC)
 		printf("Ошибка! Магическое число не верно!\n");
 	printf("[%x]", *n);
@@ -73,29 +79,47 @@ void	read_champ(int num, char *player, t_core *core)
 	printf("Файл открыт! [fd = %i]\n", fd);
 
 	//----- магическое число
-
 	int bytes;
 	printf("\nmagic до: ");
-	bytes = read_step(fd, (char *)&core->player[num].header.magic,
-				   SIZE_MAGIC_FIELD);
-
+	read_step(fd, (char *)&core->champ[num].header.magic, SIZE_MAGIC);
 	printf("magic после: ");
-	check_magic(&core->player[num].header.magic);
-
-	printf(" = [%i vs %i]\n", SIZE_MAGIC_FIELD, bytes);
+	check_magic(&core->champ[num].header.magic);
 
 	//----- имя игрока
-	printf("\nИмя: ");
-	read_step(fd, core->player[num].header.prog_name, PROG_NAME_LENGTH);
+	printf("\n\nИмя: ");
+	read_step(fd, core->champ[num].header.prog_name, PROG_NAME_LENGTH);
 
-	//----- пропуск области
-	read_skip(fd, SIZE_SKIP_FIELD);
+	//----- пропуск NULL области
+	read_skip(fd, SIZE_NULL);
+
+	//----- размер кода
+	printf("\nРазмер: ");
+	read_step(fd, (char *)&core->champ[num].header.prog_size, SIZE_CODE);
+	reverse_uint(&core->champ[num].header.prog_size);
+	printf("[%i]\n", core->champ[num].header.prog_size);
 
 	//----- комментрий игрока
-	read_step(fd, core->player[num].header.comment, COMMENT_LENGTH);
-	printf("\n[%c]\n", core->player[num].header.comment[0]);
-	//траблы!!!
+	printf("\nКомментарий: ");
+	read_step(fd, core->champ[num].header.comment, COMMENT_LENGTH);
 
+
+	//----- пропуск NULL области
+	read_skip(fd, SIZE_NULL);
+
+//	reverse_uint(&core->champ[num].header.prog_size);
+	//----- код игрока
+	printf("\nКод: ");
+	read_step(fd, (char *)core->champ[num].code, core->champ[num].header.prog_size);
+	printf("[%s]\n", core->champ[num].code);
+
+
+	//----- проверка кода размера
+	unsigned int	nbr = core->champ[num].header.prog_size;
+	printf("nbr = [%ld]\n", nbr);
+	if (read(fd, (char *)&nbr, 1) != 0)
+		printf("Ошибка! 1 Не правильный размер кода. nbr = [%x]\n", nbr);
+	if (nbr > CHAMP_MAX_SIZE)
+		printf("Ошибка! 2 Не правильный размер кода. nbr = [%x]\n", nbr);
 
 	//-----
 	close(fd);
@@ -103,20 +127,38 @@ void	read_champ(int num, char *player, t_core *core)
 	//-----
 }
 
-void	validation(int count, char **players, t_core *core)
+void	validation(char **players, t_core *core)
 {
-	if (count)
-		;
 	int	i;
 
 	i = 1;
-	while (core->player[i].number > 0)
+	while (CHAMP[i].number > 0)
 	{
-		printf("- %i -", core->player[i].number);
-		printf(" [%s] \n", players[core->player[i].number]);
+		printf("- %i -", CHAMP[i].number);
+		printf(" [%s] \n", players[CHAMP[i].number]);
 		i++;
 	}
 
-	read_champ(1, players[1], core);
+	i = 1;
+	while (i <= core->count)
+	{
+		printf("----------%i--%i--------\n", i, CHAMP[i].number);
+		read_champ(i, players[CHAMP[i].number], core);
+		i++;
+	}
+	//read_champ(1, players[1], core);
 
+
+	i = 1;
+	while (i <= core->count)
+	{
+		printf("----------%i-----------\n", i);
+		printf("Номер: [%i]\n", CHAMP[i].number);
+		printf("Имя: [%s]\n", CHAMP[i].header.prog_name);
+		printf("Коммент: [%s]\n", CHAMP[i].header.comment);
+		printf("Размер: [%i]\n", CHAMP[i].header.prog_size);
+		printf("Код: [%s]\n", CHAMP[i].code);
+		i++;
+	}
+	printf("----------end----------\n");
 }

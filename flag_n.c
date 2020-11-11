@@ -38,7 +38,7 @@ void	queue_players(t_core *core, int *queue, int adr, int value)
 	i = 1;
 	while (i <= MAX_PLAYERS + 1)
 	{
-		if (core->player[i].number == adr)
+		if (core->champ[i].number == adr)
 			queue[i] = value;
 		i++;
 	}
@@ -70,9 +70,9 @@ void	check_uniq_queue(int *queue)
 	}
 }
 
-void swap_player(t_player *a, t_player *b)
+void swap_player(t_champ *a, t_champ *b)
 {
-	t_player 	c;
+	t_champ 	c;
 
 	c = *a;
 	*a = *b;
@@ -106,7 +106,7 @@ void	sort_queue(t_core *core, int *queue)
 	{
 		if (queue[i] != 0)
 		{
-			swap_player(&core->player[i], &core->player[queue[i]]);
+			swap_player(&core->champ[i], &core->champ[queue[i]]);
 			// не отрабатывает, когда  например -n 3 0 1 0!!!!
 		}
 		i++;

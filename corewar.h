@@ -6,7 +6,7 @@
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 14:35:51 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/11/10 06:23:44 by mmonahan         ###   ########.fr       */
+/*   Updated: 2020/11/11 07:22:41 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,31 @@
 # include "libft/libft.h"
 # include "op.h"
 
-# define SIZE_MAGIC_FIELD 4
-# define SIZE_SKIP_FIELD 4
+/*
+**	Для чтения чемпионов
+*/
 
-typedef struct		s_player
+# define SIZE_MAGIC 4
+# define SIZE_NULL 4
+# define SIZE_CODE 4
+
+/*
+**	Сокращения
+*/
+
+# define CHAMP core->champ
+
+typedef struct		s_champ
 {
 	int 			number;
 	t_header		header;
-}					t_player;
+	unsigned char 	code[CHAMP_MAX_SIZE + 1];
+}					t_champ;
 
 typedef struct		s_core
 {
 	int 			count;
-	t_player 		player[MAX_PLAYERS + 1];
+	t_champ 		champ[MAX_PLAYERS + 1];
 	unsigned char	game_memory[MEM_SIZE];
 }					t_core;
 
@@ -51,7 +63,7 @@ typedef struct		s_flag
 
 static t_operation	op_flag[2] =
 {
-	{"-n", "--number", 2, {NUMBER, PLAYER}},
+	{"-n", "--number", 2, {NUMBER, CHAMP}},
 	{0, 0, 0, {0}}
 };
 */
@@ -59,6 +71,6 @@ static t_operation	op_flag[2] =
 int					check_name_player(char *player);
 void 				check_param(int count, char **players, t_core *core);
 void				check_flag_n(int count, char **players, t_core *core);
-void				validation(int count, char **players, t_core *core);
+void				validation(char **players, t_core *core);
 
 #endif //COREWAR_COREWAR_H
