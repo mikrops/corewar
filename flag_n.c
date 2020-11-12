@@ -1,6 +1,14 @@
-//
-// Created by mmonahan on 06.11.2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/03 17:18:13 by mmonahan          #+#    #+#             */
+/*   Updated: 2020/11/12 06:54:24 by mmonahan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "corewar.h"
 
@@ -9,12 +17,12 @@
 **	-n "number_player" "name_player"
 */
 
-int	check_arg_one(char *value)
+int	check_arg_one(char *value, int count_players)
 {
 	int param_n;
 
 	param_n = ft_atoi(value);
-	if (param_n < 1 || param_n > MAX_PLAYERS)
+	if (param_n < 1 || param_n > count_players)
 	{
 		printf("-- Неверный 1-й параметр [%i] флага n!--\n", param_n);
 		exit (3); //ошибка, неверный первый параметр флага n
@@ -36,9 +44,9 @@ void	queue_players(t_core *core, int *queue, int adr, int value)
 	int	i;
 
 	i = 1;
-	while (i <= MAX_PLAYERS + 1)
+	while (i <= core->count + 1)
 	{
-		if (core->champ[i].number == adr)
+		if (CHAMP[i].arg == adr)
 			queue[i] = value;
 		i++;
 	}
@@ -70,15 +78,6 @@ void	check_uniq_queue(int *queue)
 	}
 }
 
-void swap_player(t_champ *a, t_champ *b)
-{
-	t_champ 	c;
-
-	c = *a;
-	*a = *b;
-	*b = c;
-}
-
 /*
 **	Пояснение сортировки очереди!
 **
@@ -95,19 +94,28 @@ void swap_player(t_champ *a, t_champ *b)
 **	флаг -n	1 3 4 0
 **	было	3 6 9 10
 **	стало	3 9 10 6
+**
+**	флаг -n	3 0 1 0
+**	было	3 6 9 10
+**	стало	9 6 3 10
 */
 
 void	sort_queue(t_core *core, int *queue)
 {
-	int i;
+	int		i;
+	t_champ c;
 
 	i = 1;
-	while (i < MAX_PLAYERS + 1)
+	while (i < core->count + 1)
 	{
 		if (queue[i] != 0)
 		{
-			swap_player(&core->champ[i], &core->champ[queue[i]]);
-			// не отрабатывает, когда  например -n 3 0 1 0!!!!
+			if (queue[i] != CHAMP[i].id)
+			{
+				c = CHAMP[i];
+				CHAMP[i] = CHAMP[queue[i]];
+				CHAMP[queue[i]] = c;
+			}
 		}
 		i++;
 	}
@@ -117,11 +125,11 @@ void	check_flag_n(int count, char **player, t_core *core)
 {
 	int		i;
 	int		param_n;
-	int		queue[MAX_PLAYERS + 1];
+	int		queue[core->count + 1];
 
 	i = 1;
 	param_n = 0;
-	while (i < MAX_PLAYERS + 1)
+	while (i < core->count + 1)
 		queue[i++] = 0;
 	i = 1;
 	while (i < count)
@@ -133,7 +141,7 @@ void	check_flag_n(int count, char **player, t_core *core)
 				printf("--Неверное владение флагом -n!--\n");
 				exit(5);
 			}
-			param_n = check_arg_one(player[i + 1]);
+			param_n = check_arg_one(player[i + 1], core->count);
 			check_arg_two(player[i + 2]);
 			queue_players(core, queue, i + 2, param_n);
 			check_uniq_queue(queue);
@@ -144,7 +152,7 @@ void	check_flag_n(int count, char **player, t_core *core)
 
 	i = 1;
 	printf("очередь: ");
-	while (i < MAX_PLAYERS + 1)
+	while (i < core->count + 1)
 	{
 		printf("%i ", queue[i]);
 		i++;

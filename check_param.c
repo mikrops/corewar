@@ -6,19 +6,14 @@
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 17:18:13 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/11/11 06:57:03 by mmonahan         ###   ########.fr       */
+/*   Updated: 2020/11/12 06:36:05 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 /*
-**	Проверка параметров.
-**	Обработка флагов
- *
- *
-**	НАДО НАЙТИ КОЛИЧЕСТВО ИГРОКОВ И СОХРАНИТЬ В CORE
-**	Надо учитывать количество игроков при флаге -n!
+**	Возвращает количество игроков
 */
 
 int	check_count_players(int count, char **player, t_core *core)
@@ -32,8 +27,9 @@ int	check_count_players(int count, char **player, t_core *core)
 	{
 		if (!check_name_player(player[i]))
 		{
-			//max_p++;
-			core->champ[++max_p].number = i;//max_p;
+			max_p++;
+			CHAMP[max_p].id = max_p;
+			CHAMP[max_p].arg = i;
 		}
 		if (max_p > MAX_PLAYERS)
 		{
@@ -50,23 +46,28 @@ int	check_count_players(int count, char **player, t_core *core)
 	return (max_p);
 }
 
+/*
+**	Проверка аргументов
+**	Обработка флагов
+*/
+
 void	check_param(int count, char **players, t_core *core)
 {
-
+	printf("--%i--%s--\n", __LINE__, __FUNCTION__);
 	core->count = check_count_players(count, players, core);
 	int i = 1;
-	while (i <= MAX_PLAYERS)
+	while (i <= core->count)
 	{
-		printf("p%i - [%i], ", i, core->champ[i].number);
+		printf("p%i - [%i] ", i, CHAMP[i].arg);
 		i++;
 	}
 	printf("\n");
 
 	check_flag_n(count, players, core);
 	i = 1;
-	while (i <= MAX_PLAYERS)
+	while (i <= core->count)
 	{
-		printf("p%i - [%i], ", i, core->champ[i].number);
+		printf("p%i - [%i] ", i, CHAMP[i].arg);
 		i++;
 	}
 	printf("\nКоличество игроков: [%i]\n", core->count);

@@ -6,7 +6,7 @@
 #    By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/30 21:09:37 by mmonahan          #+#    #+#              #
-#    Updated: 2020/02/14 19:41:24 by mmonahan         ###   ########.fr        #
+#    Updated: 2020/11/12 04:20:15 by mmonahan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,9 @@ SRC = 	ft_memset.c \
 		ft_degtorad.c \
 		ft_radtodeg.c \
 		ft_str_rejoin.c \
-		ft_strcut.c
+		ft_strcut.c \
+		ft_reverse_uint.c \
+		ft_check_empty_srt.c
 
 OBJ = $(SRC:.c=.o)
 

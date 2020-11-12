@@ -87,7 +87,8 @@ add_executable(corewar main.c corewar.h
         libft/ft_str_rejoin.c
         libft/ft_radtodeg.c
         libft/ft_strcut.c
+        libft/ft_reverse_uint.c
+        libft/ft_check_empty_srt.c
         libft/libft.h
         check_param.c validation.c
-        flag_n.c check_name_player.c
-        )
+        flag_n.c check_name_player.c )

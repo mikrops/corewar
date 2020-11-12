@@ -6,7 +6,7 @@
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 14:35:51 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/11/11 07:22:41 by mmonahan         ###   ########.fr       */
+/*   Updated: 2020/11/12 06:30:05 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define COREWAR_COREWAR_H
 
 # include <stdio.h> // УДАЛИТЬ, ЗЛОЙ ПРИНТФ!
-# include <fcntl.h> // для чтения файлов
 
+# include <fcntl.h> // для чтения файлов
 # include "libft/libft.h"
 # include "op.h"
 
@@ -35,7 +35,8 @@
 
 typedef struct		s_champ
 {
-	int 			number;
+	int 			id;
+	int 			arg;
 	t_header		header;
 	unsigned char 	code[CHAMP_MAX_SIZE + 1];
 }					t_champ;
@@ -63,7 +64,7 @@ typedef struct		s_flag
 
 static t_operation	op_flag[2] =
 {
-	{"-n", "--number", 2, {NUMBER, CHAMP}},
+	{"-n", "--arg", 2, {NUMBER, CHAMP}},
 	{0, 0, 0, {0}}
 };
 */

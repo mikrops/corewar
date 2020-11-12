@@ -6,7 +6,7 @@
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:16:18 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/02/14 19:41:24 by mmonahan         ###   ########.fr       */
+/*   Updated: 2020/11/12 04:20:15 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,4 +161,15 @@ char				*ft_str_rejoin(char *s1, char const *s2);
 */
 
 char				*ft_strcut(const char *str, int c);
+
+/*
+**	My extra functions (corewar)
+**	Мои подопнительные функции (corewar)
+**
+**	2020/11/12 15:12:43
+*/
+
+void				ft_reverse_uint(unsigned int *n);
+int					ft_check_empty_srt(char *str, size_t len);
+
 #endif
