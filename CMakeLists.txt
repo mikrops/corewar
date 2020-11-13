@@ -91,4 +91,4 @@ add_executable(corewar main.c corewar.h
         libft/ft_check_empty_srt.c
         libft/libft.h
         check_param.c validation.c
-        flag_n.c check_name_player.c )
+        flag_n.c check_name_player.c error.c)

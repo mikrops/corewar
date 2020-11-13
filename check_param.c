@@ -6,7 +6,7 @@
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 17:18:13 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/11/12 06:36:05 by mmonahan         ###   ########.fr       */
+/*   Updated: 2020/11/13 19:22:29 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,11 @@ int	check_count_players(int count, char **player, t_core *core)
 			CHAMP[max_p].arg = i;
 		}
 		if (max_p > MAX_PLAYERS)
-		{
-			printf("--Слишком много игроков!--\n");
-			exit(1);
-		}
+			exception(ERROR_MAX_PLAYERS);//--Слишком много игроков!--
 		i++;
 	}
 	if (max_p < 1)
-	{
-		printf("--Слишком мало игроков!--\n");
-		exit (2);
-	}
+		exception(ERROR_ZERO_PLAYERS); //--Слишком мало игроков!--
 	return (max_p);
 }
 
@@ -55,6 +49,7 @@ void	check_param(int count, char **players, t_core *core)
 {
 	printf("--%i--%s--\n", __LINE__, __FUNCTION__);
 	core->count = check_count_players(count, players, core);
+
 	int i = 1;
 	while (i <= core->count)
 	{

@@ -6,7 +6,7 @@
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 17:18:13 by mmonahan          #+#    #+#             */
-/*   Updated: 2020/11/12 06:54:24 by mmonahan         ###   ########.fr       */
+/*   Updated: 2020/11/13 18:29:26 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_arg_one(char *value, int count_players)
 	if (param_n < 1 || param_n > count_players)
 	{
 		printf("-- Неверный 1-й параметр [%i] флага n!--\n", param_n);
-		exit (3); //ошибка, неверный первый параметр флага n
+		exit (ERROR_INVALID_FLAG); //ошибка, неверный первый параметр флага n
 	}
 	return (param_n);
 }
@@ -66,7 +66,7 @@ void	check_uniq_queue(int *queue)
 		if (queue[arg] != 0)
 			while (pos < MAX_PLAYERS + 1)
 			{
-				if ( arg != pos && queue[arg] == queue[pos])
+				if (arg != pos && queue[arg] == queue[pos])
 				{
 					printf("Ошибка! Значения флага -n не должны повторяться\n");
 					exit (7); // Ошибка. ЗНачинея флага -n повторяются

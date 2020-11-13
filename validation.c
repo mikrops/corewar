@@ -55,16 +55,16 @@ void	read_champ(int num, char *player, t_core *core)
 		close(fd);
 		exit (8);
 	}
-	read_step(fd, (char *)&core->champ[num].header.magic, SIZE_MAGIC);
-	check_magic(&core->champ[num].header.magic);
-	read_step(fd, core->champ[num].header.prog_name, PROG_NAME_LENGTH);
+	read_step(fd, (char *)&CHAMP[num].header.magic, SIZE_MAGIC);
+	check_magic(&CHAMP[num].header.magic);
+	read_step(fd, CHAMP[num].header.prog_name, PROG_NAME_LENGTH);
 	read_skip(fd, SIZE_NULL);
-	read_step(fd, (char *)&core->champ[num].header.prog_size, SIZE_CODE);
-	ft_reverse_uint(&core->champ[num].header.prog_size);
-	read_step(fd, core->champ[num].header.comment, COMMENT_LENGTH);
+	read_step(fd, (char *)&CHAMP[num].header.prog_size, SIZE_CODE);
+	ft_reverse_uint(&CHAMP[num].header.prog_size);
+	read_step(fd, CHAMP[num].header.comment, COMMENT_LENGTH);
 	read_skip(fd, SIZE_NULL);
-	read_step(fd, (char *)core->champ[num].code, core->champ[num].header.prog_size);
-	nbr = core->champ[num].header.prog_size;
+	read_step(fd, (char *)CHAMP[num].code, CHAMP[num].header.prog_size);
+	nbr = CHAMP[num].header.prog_size;
 	if (read(fd, (char *)&nbr, 1) != 0)
 		printf("Ошибка! 1 Не правильный размер кода. nbr = [%x]\n", nbr);
 	if (nbr > CHAMP_MAX_SIZE)
